@@ -1,0 +1,18 @@
+{
+  "default_branch": "main",
+  "branches": [
+    "legacy/v2-web-app",
+    "main",
+    "origin"
+  ],
+  "parent": {
+    "legacy/v2-web-app": "main",
+    "main": null,
+    "origin": "main"
+  },
+  "order": [
+    "main",
+    "legacy/v2-web-app",
+    "origin"
+  ]
+}
