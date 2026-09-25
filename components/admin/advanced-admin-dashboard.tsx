@@ -737,7 +737,7 @@ export function AdvancedAdminDashboard({ user }: AdminDashboardProps) {
 
             {activeTab === "users" && (
               <div className="space-y-6">
-                <h2 className={`text-xl font-bold ${themeClasses.text}`}>User Management</h2>
+                <h2 className={`text-xl font-bold ${themeClasses.text}`}>Management</h2>
                 <Card className={`${themeClasses.cardBg} backdrop-blur-sm`}>
                   <CardContent className="p-12 text-center">
                     <Users className="w-16 h-16 mx-auto mb-4 text-gray-400" />
