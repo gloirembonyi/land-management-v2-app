@@ -1,0 +1,129 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                  String   @id @default(cuid())
+  name                String
+  nationalId          String   @unique
+  isVerified          Boolean  @default(false)
+  avatar              String?
+  role                String   @default("USER")
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+  email               String   @unique @default("admin@ubutaka.gov.rw")
+  password            String   @default("password123")
+  cell                String?
+  district            String?
+  sector              String?
+  village             String?
+  biometricRegistered Boolean  @default(false)
+  digitalSignature    String?
+  idPictureUrl        String?
+  profileCompleted    Boolean  @default(false)
+}
+
+model Parcel {
+  upi           String    @id
+  size          String
+  use           String
+  district      String
+  location      String
+  status        String    @default("Pending Verification")
+  ownerName     String
+  imageUrl      String
+  price         String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  certificateId String?   @unique
+  coordinates   String?
+  documents     String?
+  isVerified    Boolean   @default(false)
+  userId        String?
+  verifiedAt    DateTime?
+  cell          String?
+  sector        String?
+  village       String?
+  children      String?
+  partners      String?
+  ownerHistory  String?   // JSON array of ownership transfers
+}
+
+model Transaction {
+  id           String   @id @default(cuid())
+  title        String
+  upi          String
+  status       String
+  date         String
+  step         String
+  progress     Int
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  blockNumber  Int?
+  buyerName    String?
+  gasFee       String?
+  previousHash String?
+  price        String?
+  sellerName   String?
+  txHash       String?  @unique
+  type         String   @default("TRANSFER")
+}
+
+model Dispute {
+  id               String   @id @default(cuid())
+  upi              String
+  type             String
+  status           String   @default("OPEN")
+  dateOpened       String
+  parties          String
+  description      String
+  location         String
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+  assignedAbunziId String?
+  cell             String?
+  district         String?
+  sector           String?
+  village          String?
+  decisions        String?
+  evidence         String?
+  familyTree       String?
+  reportedById     String?
+  statements       String?
+}
+
+model AnomalyReport {
+  id           String   @id @default(cuid())
+  upi          String?
+  type         String
+  description  String
+  imageUrl     String?
+  location     String?
+  latitude     Float?
+  longitude    Float?
+  status       String   @default("PENDING")
+  reportedById String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model LandDocument {
+  id          String   @id @default(cuid())
+  name        String
+  category    String
+  url         String
+  upi         String?
+  ownerId     String
+  fileDate    String?
+  description String?
+  status      String   @default("PENDING") // PENDING, CERTIFIED
+  isCertified Boolean  @default(false)
+  isEncrypted Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
